@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mingyang.reggie.mapper.ShoppingCartMapper">
+  <resultMap id="BaseResultMap" type="com.mingyang.reggie.entity.ShoppingCart">
+    <!--@mbg.generated-->
+    <!--@Table shopping_cart-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="dish_id" jdbcType="BIGINT" property="dishId" />
+    <result column="setmeal_id" jdbcType="BIGINT" property="setmealId" />
+    <result column="dish_flavor" jdbcType="VARCHAR" property="dishFlavor" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, image, user_id, dish_id, setmeal_id, dish_flavor, `number`, amount, create_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update shopping_cart
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.name,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="image = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.image,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.userId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="dish_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.dishId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="setmeal_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.setmealId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="dish_flavor = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.dishFlavor,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`number` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.number,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="amount = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.amount,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into shopping_cart
+    (id, `name`, image, user_id, dish_id, setmeal_id, dish_flavor, `number`, amount, 
+      create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.name,jdbcType=VARCHAR}, #{item.image,jdbcType=VARCHAR}, 
+        #{item.userId,jdbcType=BIGINT}, #{item.dishId,jdbcType=BIGINT}, #{item.setmealId,jdbcType=BIGINT}, 
+        #{item.dishFlavor,jdbcType=VARCHAR}, #{item.number,jdbcType=INTEGER}, #{item.amount,jdbcType=DECIMAL}, 
+        #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+</mapper>

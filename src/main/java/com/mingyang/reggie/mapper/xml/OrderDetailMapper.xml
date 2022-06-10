@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mingyang.reggie.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mingyang.reggie.entity.OrderDetail">
+    <!--@mbg.generated-->
+    <!--@Table order_detail-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="dish_id" jdbcType="BIGINT" property="dishId" />
+    <result column="setmeal_id" jdbcType="BIGINT" property="setmealId" />
+    <result column="dish_flavor" jdbcType="VARCHAR" property="dishFlavor" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, image, order_id, dish_id, setmeal_id, dish_flavor, `number`, amount
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update order_detail
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.name,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="image = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.image,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="order_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.orderId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="dish_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.dishId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="setmeal_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.setmealId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="dish_flavor = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.dishFlavor,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`number` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.number,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="amount = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.amount,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into order_detail
+    (id, `name`, image, order_id, dish_id, setmeal_id, dish_flavor, `number`, amount)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.name,jdbcType=VARCHAR}, #{item.image,jdbcType=VARCHAR}, 
+        #{item.orderId,jdbcType=BIGINT}, #{item.dishId,jdbcType=BIGINT}, #{item.setmealId,jdbcType=BIGINT}, 
+        #{item.dishFlavor,jdbcType=VARCHAR}, #{item.number,jdbcType=INTEGER}, #{item.amount,jdbcType=DECIMAL}
+        )
+    </foreach>
+  </insert>
+</mapper>

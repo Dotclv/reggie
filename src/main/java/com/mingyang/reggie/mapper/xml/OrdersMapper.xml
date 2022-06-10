@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mingyang.reggie.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.mingyang.reggie.entity.Orders">
+    <!--@mbg.generated-->
+    <!--@Table orders-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="address_book_id" jdbcType="BIGINT" property="addressBookId" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="checkout_time" jdbcType="TIMESTAMP" property="checkoutTime" />
+    <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `number`, `status`, user_id, address_book_id, order_time, checkout_time, pay_method, 
+    amount, remark, phone, address, user_name, consignee
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update orders
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`number` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.number,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.status,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.userId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="address_book_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.addressBookId,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="order_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.orderTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="checkout_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.checkoutTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="pay_method = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.payMethod,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="amount = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.amount,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.remark,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="phone = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.phone,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="address = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.address,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.userName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="consignee = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.consignee,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into orders
+    (id, `number`, `status`, user_id, address_book_id, order_time, checkout_time, pay_method, 
+      amount, remark, phone, address, user_name, consignee)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.number,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, 
+        #{item.userId,jdbcType=BIGINT}, #{item.addressBookId,jdbcType=BIGINT}, #{item.orderTime,jdbcType=TIMESTAMP}, 
+        #{item.checkoutTime,jdbcType=TIMESTAMP}, #{item.payMethod,jdbcType=INTEGER}, #{item.amount,jdbcType=DECIMAL}, 
+        #{item.remark,jdbcType=VARCHAR}, #{item.phone,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, 
+        #{item.userName,jdbcType=VARCHAR}, #{item.consignee,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

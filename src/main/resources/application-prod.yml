@@ -1,0 +1,47 @@
+server:
+  port: 8181
+spring:
+  application:
+    name: reggie
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.17.132:3306/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+      # 邮箱配置
+#  mail:
+#    host: smtp.163.com  # 发送邮件的服务器地址
+#    username: xlei1812023@163.com # 登录163邮箱的账号
+#    password: XTZMIJKGMWDXDVRI  # 开启 IMAP/SMTP服务 获得的授权码,而不是163邮箱的登录密码
+#    default-encoding: UTF-8
+
+  redis:
+    host: 192.168.17.132 # 本地IP 或是 虚拟机IP
+    port: 6379
+    #    password: root
+    database: 0  # 默认使用 0号db
+  cache:
+    redis:
+      time-to-live: 1800000  # 设置缓存数据的过期时间，30分钟
+
+mybatis-plus:
+  mapper-locations: com.mingyang.reggie.mapper.xml.**.xml
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+      id-type: ASSIGN_ID
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+
+logging:
+  level:
+    com.mingyang.reggie: INFO
+  config: classpath:logback-spring.xml
+
+#upload:
+#  filePath: E:\maven_project\mydelivery\project_images\img

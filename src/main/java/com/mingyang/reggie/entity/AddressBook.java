@@ -1,14 +1,13 @@
 package com.mingyang.reggie.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author:  ymy
@@ -21,11 +20,13 @@ import lombok.Data;
 /**
  * 地址管理
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "地址管理")
 @Data
 @Builder
 @TableName(value = "address_book")
-public class AddressBook {
+public class AddressBook extends BaseEntity {
+    private static final long serialVersionUID = 4739265794925473130L;
     /**
      * 主键
      */
@@ -124,40 +125,6 @@ public class AddressBook {
     @ApiModelProperty(value = "默认 0 否 1是")
     private Boolean isDefault;
 
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
-
-    /**
-     * 创建人
-     */
-    @TableField(value = "create_user")
-    @ApiModelProperty(value = "创建人")
-    private Long createUser;
-
-    /**
-     * 修改人
-     */
-    @TableField(value = "update_user")
-    @ApiModelProperty(value = "修改人")
-    private Long updateUser;
-
-    /**
-     * 是否删除
-     */
-    @TableField(value = "is_deleted")
-    @ApiModelProperty(value = "是否删除")
-    private Integer isDeleted;
 
     public static final String COL_ID = "id";
 
@@ -187,13 +154,4 @@ public class AddressBook {
 
     public static final String COL_IS_DEFAULT = "is_default";
 
-    public static final String COL_CREATE_TIME = "create_time";
-
-    public static final String COL_UPDATE_TIME = "update_time";
-
-    public static final String COL_CREATE_USER = "create_user";
-
-    public static final String COL_UPDATE_USER = "update_user";
-
-    public static final String COL_IS_DELETED = "is_deleted";
 }

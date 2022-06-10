@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author:  ymy
@@ -20,12 +22,15 @@ import lombok.Data;
  */
 /**
     * 购物车
-    */
+ * @author 36995
+ */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value="购物车")
 @Data
 @Builder
 @TableName(value = "shopping_cart")
-public class ShoppingCart {
+public class ShoppingCart extends BaseEntity {
+    private static final long serialVersionUID = 145562465373864473L;
     /**
      * 主键
      */
@@ -89,13 +94,6 @@ public class ShoppingCart {
     @ApiModelProperty(value="金额")
     private BigDecimal amount;
 
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    @ApiModelProperty(value="创建时间")
-    private Date createTime;
-
     public static final String COL_ID = "id";
 
     public static final String COL_NAME = "name";
@@ -114,5 +112,4 @@ public class ShoppingCart {
 
     public static final String COL_AMOUNT = "amount";
 
-    public static final String COL_CREATE_TIME = "create_time";
 }

@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author:  ymy
@@ -20,11 +22,13 @@ import lombok.Data;
 /**
     * 菜品及套餐分类
     */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value="菜品及套餐分类")
 @Data
 @Builder
 @TableName(value = "category")
-public class Category {
+public class Category extends BaseEntity {
+    private static final long serialVersionUID = -2669322959272111304L;
     /**
      * 主键
      */
@@ -53,34 +57,6 @@ public class Category {
     @ApiModelProperty(value="顺序")
     private Integer sort;
 
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    @ApiModelProperty(value="创建时间")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    @ApiModelProperty(value="更新时间")
-    private Date updateTime;
-
-    /**
-     * 创建人
-     */
-    @TableField(value = "create_user")
-    @ApiModelProperty(value="创建人")
-    private Long createUser;
-
-    /**
-     * 修改人
-     */
-    @TableField(value = "update_user")
-    @ApiModelProperty(value="修改人")
-    private Long updateUser;
-
     public static final String COL_ID = "id";
 
     public static final String COL_TYPE = "type";
@@ -88,12 +64,4 @@ public class Category {
     public static final String COL_NAME = "name";
 
     public static final String COL_SORT = "sort";
-
-    public static final String COL_CREATE_TIME = "create_time";
-
-    public static final String COL_UPDATE_TIME = "update_time";
-
-    public static final String COL_CREATE_USER = "create_user";
-
-    public static final String COL_UPDATE_USER = "update_user";
 }

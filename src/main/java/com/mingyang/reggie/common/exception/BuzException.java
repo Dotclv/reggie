@@ -1,6 +1,6 @@
 package com.mingyang.reggie.common.exception;
 
-import com.mingyang.bootlaunch.common.result.ResultCode;
+import com.mingyang.reggie.common.result.ResultCode;
 import lombok.Data;
 
 @Data

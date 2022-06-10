@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author:  ymy
@@ -18,12 +20,15 @@ import lombok.Data;
  */
 /**
     * 用户信息
-    */
+ * @author 36995
+ */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value="用户信息")
 @Data
 @Builder
 @TableName(value = "`user`")
-public class User {
+public class User extends BaseEntity {
+    private static final long serialVersionUID = -656933883974051470L;
     /**
      * 主键
      */

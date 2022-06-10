@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author:  ymy
@@ -20,11 +22,13 @@ import lombok.Data;
 /**
     * 员工信息
     */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value="员工信息")
 @Data
 @Builder
 @TableName(value = "employee")
-public class Employee {
+public class Employee extends BaseEntity {
+    private static final long serialVersionUID = 6787847893564790628L;
     /**
      * 主键
      */
@@ -81,34 +85,6 @@ public class Employee {
     @ApiModelProperty(value="状态 0:禁用，1:正常")
     private Integer status;
 
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    @ApiModelProperty(value="创建时间")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    @ApiModelProperty(value="更新时间")
-    private Date updateTime;
-
-    /**
-     * 创建人
-     */
-    @TableField(value = "create_user")
-    @ApiModelProperty(value="创建人")
-    private Long createUser;
-
-    /**
-     * 修改人
-     */
-    @TableField(value = "update_user")
-    @ApiModelProperty(value="修改人")
-    private Long updateUser;
-
     public static final String COL_ID = "id";
 
     public static final String COL_NAME = "name";
@@ -124,12 +100,4 @@ public class Employee {
     public static final String COL_ID_NUMBER = "id_number";
 
     public static final String COL_STATUS = "status";
-
-    public static final String COL_CREATE_TIME = "create_time";
-
-    public static final String COL_UPDATE_TIME = "update_time";
-
-    public static final String COL_CREATE_USER = "create_user";
-
-    public static final String COL_UPDATE_USER = "update_user";
 }

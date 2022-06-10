@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author:  ymy
@@ -20,11 +22,13 @@ import lombok.Data;
 /**
     * 订单明细表
     */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value="订单明细表")
 @Data
 @Builder
 @TableName(value = "order_detail")
-public class OrderDetail {
+public class OrderDetail extends BaseEntity {
+    private static final long serialVersionUID = 5643788198348820947L;
     /**
      * 主键
      */

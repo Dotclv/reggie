@@ -335,7 +335,7 @@
                 return
               }
               const res = await dishListApi({categoryId:this.categoryId,status:1})
-              if(res.code === 1){
+              if(res.code === 200){
                 let dishList = res.data
                 const cartData  = this.cartData
                 if(dishList.length > 0 && cartData.length > 0){
@@ -358,7 +358,7 @@
                 return
               }
               const res = await setmealListApi({categoryId:this.categoryId,status:1})
-              if(res.code === 1){
+              if(res.code === 200){
                   let dishList = res.data
                   const cartData  = this.cartData
                   if(dishList.length > 0 && cartData.length > 0){
@@ -378,7 +378,7 @@
             //获取购物车数据
             async getCartData(){
               const res = await cartListApi({})
-              if(res.code === 1){
+              if(res.code === 200){
                 this.cartData = res.data
               }else{
                 this.$notify({ type:'warning', message:res.msg});
@@ -400,7 +400,7 @@
                 params.setmealId = item.id
               }
               const res = await addCartApi(params)
-              if(res.code === 1){
+              if(res.code === 200){
                 this.dishList.forEach(dish=>{
                   if(dish.id === item.id){
                     dish.number = res.data.number
@@ -426,7 +426,7 @@
                   }
                 }
                 const res = await updateCartApi(params)
-                if(res.code === 1){
+                if(res.code === 200){
                 this.dishList.forEach(dish=>{
                   if(dish.id === item.id){
                     dish.number = (res.data.number === 0 ? undefined : res.data.number)
@@ -458,7 +458,7 @@
                 image:item.image
               }
               const res = await addCartApi(params)
-              if(res.code === 1){
+              if(res.code === 200){
                 this.dishList.forEach(dish=>{
                   if(dish.id === (item.dishId || item.setmealId)){
                     dish.number = res.data.number
@@ -477,7 +477,7 @@
                   setmealId:item.setmealId,
                 }
                 const res = await updateCartApi(params)
-                if(res.code === 1){
+                if(res.code === 200){
                 this.dishList.forEach(dish=>{
                   if(dish.id === (item.dishId || item.setmealId)){
                     dish.number = (res.data.number === 0 ? undefined : res.data.number)
@@ -501,7 +501,7 @@
             //清空购物车
             async clearCart(){
                 const res = await clearCartApi()
-                if(res.code === 1){
+                if(res.code === 200){
                   for(let ele of this.dishList){
                     ele.number = undefined
                   }
@@ -588,7 +588,7 @@
               }else{
                 //显示套餐的数据
                 const res = await setMealDishDetailsApi(item.id)
-                if(res.code === 1){
+                if(res.code === 200){
                   this.setMealDialog.item = {...item,list:res.data}
                   this.setMealDialog.show = true
                 }else{

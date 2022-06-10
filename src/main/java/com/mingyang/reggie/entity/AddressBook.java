@@ -31,7 +31,7 @@ public class AddressBook extends BaseEntity {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "主键")
     private Long id;
 

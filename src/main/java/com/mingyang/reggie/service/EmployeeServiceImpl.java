@@ -1,10 +1,16 @@
 package com.mingyang.reggie.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mingyang.reggie.common.constant.EntityConstant;
+import com.mingyang.reggie.common.enums.EmployeeEnum;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.common.result.ResultCode;
+import com.mingyang.reggie.common.utils.JsonTool;
 import com.mingyang.reggie.common.utils.MD5Util;
+import com.mingyang.reggie.entity.dto.EnployeeDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +20,9 @@ import java.util.List;
 import com.mingyang.reggie.mapper.EmployeeMapper;
 import com.mingyang.reggie.entity.Employee;
 import com.mingyang.reggie.service.impl.EmployeeService;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 /**
  * @author:  ymy
  * @program: reggie
@@ -63,5 +72,41 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         request.getSession().setAttribute("employee", emp.getId());
         log.info("用户 {} 登录成功", emp.getUsername());
         return Result.success(emp);
+    }
+
+    /**
+     * 登出
+     * @param request   HttpServletRequest
+     * @return Result<Employee>
+     */
+    @Override
+    public Result logout(HttpServletRequest request) {
+        // 清除session
+        request.getSession().removeAttribute("employee");
+        log.info("用户登出");
+        return Result.success();
+    }
+
+    @Override
+    public Result page(Integer page, Integer size, String name) {
+        Page<Employee> employeePage = new Page<>(page, size);
+        QueryWrapper<Employee> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Employee::getIsDeleted,EntityConstant.IS_NOT_DELETED)
+                        .like(StringUtils.isNotEmpty(name), Employee::getUsername, name)
+                        .orderByDesc(Employee::getCreateTime);
+        Page<Employee> selectPage = baseMapper.selectPage(employeePage, wrapper);
+        return Result.success(selectPage);
+    }
+
+    @Override
+    public Result add(EnployeeDTO employee,HttpServletRequest request) {
+        Employee toEmployee = EnployeeDTO.convertToEmployee(employee);
+//        Object attribute = request.getSession().getAttribute("employee");
+//        Employee parse = JsonTool.parse(JsonTool.toJson(attribute), Employee.class);
+        toEmployee.setCreateUser(1L);
+        toEmployee.setUpdateUser(1L);
+        toEmployee.setPassword(MD5Util.MD5(toEmployee.getPassword()));
+        int insert = baseMapper.insert(toEmployee);
+        return insert >0 ? Result.success() : Result.failure(ResultCode.USER_ADD_ERROR);
     }
 }

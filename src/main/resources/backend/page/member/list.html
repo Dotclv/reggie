@@ -139,7 +139,7 @@
               name: this.input ? this.input : undefined
             }
             await getMemberList(params).then(res => {
-              if (String(res.code) === '1') {
+              if (String(res.code) === '200') {
                 this.tableData = res.data.records || []
                 this.counts = res.data.total
               }
@@ -178,7 +178,7 @@
               }).then(() => {
               enableOrDisableEmployee({ 'id': this.id, 'status': !this.status ? 1 : 0 }).then(res => {
                 console.log('enableOrDisableEmployee',res)
-                if (String(res.code) === '1') {
+                if (String(res.code) === '200') {
                   this.$message.success('账号状态更改成功！')
                   this.handleQuery()
                 }

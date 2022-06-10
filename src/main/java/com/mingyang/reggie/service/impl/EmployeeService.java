@@ -5,6 +5,7 @@ import java.util.List;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mingyang.reggie.entity.dto.EnployeeDTO;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,4 +30,27 @@ public interface EmployeeService extends IService<Employee>{
      * @return Result<Employee>
      */
     Result login(HttpServletRequest request, Employee employee);
+
+    /**
+     * 登出
+     * @param request   HttpServletRequest
+     * @return Result<Employee>
+     */
+    Result logout(HttpServletRequest request);
+
+    /**
+     * 分页查询
+     * @param page
+     * @param size
+     * @param name
+     * @return
+     */
+    Result page(Integer page, Integer size, String name);
+
+    /**
+     * 新增员工信息
+     * @param employee EnployeeDTO
+     * @return Result<Employee>
+     */
+    Result add(EnployeeDTO employee,HttpServletRequest request);
 }

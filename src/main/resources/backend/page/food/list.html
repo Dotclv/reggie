@@ -165,7 +165,7 @@
               name: this.input ? this.input : undefined
             }
             await getDishPage(params).then(res => {
-              if (String(res.code) === '1') {
+              if (String(res.code) === '200') {
                 this.tableData = res.data.records || []
                 this.counts = res.data.total
               }
@@ -209,7 +209,7 @@
               'cancelButtonText': '取消',
             }).then(() => {
               deleteDish(type === '批量' ? this.checkList.join(',') : id).then(res => {
-                if (res.code === 1) {
+                if (res.code === 200) {
                   this.$message.success('删除成功！')
                   this.handleQuery()
                 } else {
@@ -245,7 +245,7 @@
               dishStatusByStatus(this.dishState).then(res => {
               // dishStatusByStatus({'id': this.id, 'status': !this.status ? 1 : 0}).then(res => {
                 // 'id': this.id, 'status': !this.status ? 1 : 0
-                if (res.code === 1) {
+                if (res.code === 200) {
                   this.$message.success('菜品状态已经更改成功！')
                   this.handleQuery()
                 } else {

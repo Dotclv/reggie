@@ -98,6 +98,10 @@ public enum ResultCode {
      * 用户名或密码错误
      */
     USER_NAME_OR_PASSWORD_ERROR(2006, "用户名或密码错误"),
+    /**
+     * 用户添加失败
+     */
+    USER_ADD_ERROR(2007, "用户添加失败"),
 
 
 

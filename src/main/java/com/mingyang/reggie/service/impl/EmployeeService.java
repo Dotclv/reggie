@@ -1,9 +1,14 @@
 package com.mingyang.reggie.service.impl;
 
 import java.util.List;
+
+import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
-    /**
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
  * @author:  ymy
  * @program: reggie
  * @description: ${description}
@@ -17,4 +22,11 @@ public interface EmployeeService extends IService<Employee>{
 
     int batchInsert(List<Employee> list);
 
+    /**
+     * 登录
+     * @param request  HttpServletRequest
+     * @param employee Employee
+     * @return Result<Employee>
+     */
+    Result login(HttpServletRequest request, Employee employee);
 }

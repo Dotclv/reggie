@@ -24,7 +24,7 @@ public class AopLog {
 	/**
 	 * 切入点
 	 */
-	@Pointcut("execution(public * com.mingyang.bootlaunch.controller.*.*(..))")
+	@Pointcut("execution(public * com.mingyang.reggie.controller.*.*(..))")
 	public void log() {
 
 	}

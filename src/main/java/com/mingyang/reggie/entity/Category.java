@@ -11,6 +11,7 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -25,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="菜品及套餐分类")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "category")
 public class Category extends BaseEntity {
     private static final long serialVersionUID = -2669322959272111304L;

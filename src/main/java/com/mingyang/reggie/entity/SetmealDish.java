@@ -12,6 +12,7 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -26,7 +27,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="套餐菜品关系")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "setmeal_dish")
 public class SetmealDish extends BaseEntity {
     private static final long serialVersionUID = -2581231509513561008L;

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.common.result.ResultCode;
 import com.mingyang.reggie.common.utils.MD5Util;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.mingyang.reggie.service.impl.EmployeeService;
  * @date: 2022/6/10 22:52
  * @version: 1.0
  */
+@Slf4j
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService{
 
@@ -59,6 +61,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         }
         // 将用户信息存入session
         request.getSession().setAttribute("employee", emp.getId());
+        log.info("用户 {} 登录成功", emp.getUsername());
         return Result.success(emp);
     }
 }

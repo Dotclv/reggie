@@ -11,6 +11,7 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -25,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="员工信息")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "employee")
 public class Employee extends BaseEntity {
     private static final long serialVersionUID = 6787847893564790628L;

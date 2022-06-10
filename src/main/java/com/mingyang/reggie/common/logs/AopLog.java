@@ -2,11 +2,10 @@ package com.mingyang.reggie.common.logs;
 
 import com.alibaba.fastjson.JSONObject;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -15,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 @Aspect
 @Component
 public class AopLog {
-	private static final Logger logger = LoggerFactory.getLogger(AopLog.class);
 	private static final String START_TIME = "request-start";
 
 	/**
@@ -40,12 +39,12 @@ public class AopLog {
 
 		HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
 
-		logger.info("【请求 URL】：{}", request.getRequestURL());
-		logger.info("【请求 IP】：{}", request.getRemoteAddr());
-		logger.info("【请求类名】：{}，【请求方法名】：{}", point.getSignature().getDeclaringTypeName(), point.getSignature().getName());
+		log.info("【请求 URL】：{}", request.getRequestURL());
+		log.info("【请求 IP】：{}", request.getRemoteAddr());
+		log.info("【请求类名】：{}，【请求方法名】：{}", point.getSignature().getDeclaringTypeName(), point.getSignature().getName());
 
 		Map<String, String[]> parameterMap = request.getParameterMap();
-		logger.info("【请求参数】：{}，", JSONObject.toJSONString(parameterMap));
+		log.info("【请求参数】：{}，", JSONObject.toJSONString(parameterMap));
 		Long start = System.currentTimeMillis();
 		request.setAttribute(START_TIME, start);
 	}
@@ -60,7 +59,7 @@ public class AopLog {
 	@Around("log()")
 	public Object aroundLog(ProceedingJoinPoint point) throws Throwable {
 		Object result = point.proceed();
-		logger.info("【返回值】：{}", JSONObject.toJSONString(result));
+		log.info("【返回值】：{}", JSONObject.toJSONString(result));
 		return result;
 	}
 
@@ -74,10 +73,10 @@ public class AopLog {
 
 		Long start = (Long) request.getAttribute(START_TIME);
 		Long end = System.currentTimeMillis();
-		logger.info("【请求耗时】：{}毫秒", end - start);
+		log.info("【请求耗时】：{}毫秒", end - start);
 
 		String header = request.getHeader("User-Agent");
 		UserAgent userAgent = UserAgent.parseUserAgentString(header);
-		logger.info("【浏览器类型】：{}，【操作系统】：{}，【原始User-Agent】：{}", userAgent.getBrowser().toString(), userAgent.getOperatingSystem().toString(), header);
+		log.info("【浏览器类型】：{}，【操作系统】：{}，【原始User-Agent】：{}", userAgent.getBrowser().toString(), userAgent.getOperatingSystem().toString(), header);
 	}
 }

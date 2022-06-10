@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -25,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="用户信息")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "`user`")
 public class User extends BaseEntity {
     private static final long serialVersionUID = -656933883974051470L;

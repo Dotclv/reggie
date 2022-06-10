@@ -8,6 +8,7 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -23,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "地址管理")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "address_book")
 public class AddressBook extends BaseEntity {
     private static final long serialVersionUID = 4739265794925473130L;

@@ -12,6 +12,7 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -27,7 +28,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="订单表")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "orders")
 public class Orders extends BaseEntity {
     private static final long serialVersionUID = 7068063419683607841L;

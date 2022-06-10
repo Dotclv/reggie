@@ -12,6 +12,7 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -27,7 +28,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="购物车")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "shopping_cart")
 public class ShoppingCart extends BaseEntity {
     private static final long serialVersionUID = 145562465373864473L;
@@ -41,7 +42,7 @@ public class ShoppingCart extends BaseEntity {
     /**
      * 名称
      */
-    @TableField(value = "`name`")
+    @TableField(value = "name")
     @ApiModelProperty(value="名称")
     private String name;
 
@@ -83,7 +84,7 @@ public class ShoppingCart extends BaseEntity {
     /**
      * 数量
      */
-    @TableField(value = "`number`")
+    @TableField(value = "number")
     @ApiModelProperty(value="数量")
     private Integer number;
 

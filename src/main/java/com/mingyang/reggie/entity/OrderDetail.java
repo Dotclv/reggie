@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author:  ymy
@@ -25,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="订单明细表")
 @Data
-@Builder
+@NoArgsConstructor
 @TableName(value = "order_detail")
 public class OrderDetail extends BaseEntity {
     private static final long serialVersionUID = 5643788198348820947L;

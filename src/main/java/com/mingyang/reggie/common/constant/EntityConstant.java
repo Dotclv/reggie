@@ -11,4 +11,5 @@ public class EntityConstant {
     public final static Integer IS_DELETED = 1;
     public final static Integer IS_NOT_DELETED = 0;
     public static final String INIT_PASSWORD = "123456";
+    public static final String USER_LOGIN_SESSION_KEY = "employee";
 }

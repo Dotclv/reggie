@@ -46,6 +46,8 @@ public class LoginCheckFilter implements Filter {
         }
         // 获取session
         if(request.getSession().getAttribute("employee") != null) {
+            long id = Thread.currentThread().getId();
+            log.info("线程 {} 获取到session", id);
             filterChain.doFilter(request, response);
             return;
         }

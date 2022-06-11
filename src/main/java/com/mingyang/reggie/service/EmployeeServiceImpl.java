@@ -66,7 +66,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
             return Result.failure(ResultCode.USER_DISABLE);
         }
         // 将用户信息存入session
-        request.getSession().setAttribute("employee", emp.getId());
+        request.getSession().setAttribute(EntityConstant.USER_LOGIN_SESSION_KEY, emp.getId());
         log.info("用户 {} 登录成功", emp.getUsername());
         return Result.success(emp);
     }
@@ -79,7 +79,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Result logout(HttpServletRequest request) {
         // 清除session
-        request.getSession().removeAttribute("employee");
+        request.getSession().removeAttribute(EntityConstant.USER_LOGIN_SESSION_KEY);
         log.info("用户登出");
         return Result.success();
     }

@@ -1,16 +1,11 @@
 package com.mingyang.reggie.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mingyang.reggie.common.constant.EntityConstant;
 import com.mingyang.reggie.common.enums.EmployeeEnum;
-import com.mingyang.reggie.common.model.JsonLongSerializer;
 import com.mingyang.reggie.entity.Employee;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author: ymy

@@ -42,14 +42,14 @@ public class BaseEntity implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "create_user")
+    @TableField(value = "create_user",fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建人")
     private Long createUser;
 
     /**
      * 修改人
      */
-    @TableField(value = "update_user")
+    @TableField(value = "update_user",fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = "修改人")
     private Long updateUser;
 

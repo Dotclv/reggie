@@ -98,11 +98,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Result add(EmployeeDTO employee, HttpServletRequest request) {
         Employee toEmployee = EmployeeDTO.convertToEmployee(employee);
-        Long empId = (Long) request.getSession().getAttribute("employee");
-        toEmployee.setCreateUser(empId);
-        toEmployee.setUpdateUser(empId);
-        toEmployee.setCreateTime(new Date());
-        toEmployee.setUpdateTime(new Date());
         toEmployee.setPassword(MD5Util.MD5(EntityConstant.INIT_PASSWORD));
         return this.save(toEmployee) ? Result.success() : Result.failure(ResultCode.USER_ADD_ERROR);
     }
@@ -110,7 +105,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Result update(EmployeeDTO employee) {
         Employee toEmployee = EmployeeDTO.convertToEmployee(employee);
-        toEmployee.setUpdateTime(new Date());
         return this.updateById(toEmployee) ? Result.success() : Result.failure(ResultCode.PARAM_ERROR);
     }
 

@@ -2,7 +2,8 @@ package com.mingyang.reggie.controller;
 
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.entity.Employee;
-import com.mingyang.reggie.entity.dto.EnployeeDTO;
+import com.mingyang.reggie.entity.dto.EmployeeDTO;
+import com.mingyang.reggie.entity.dto.EmployeeLoginDTO;
 import com.mingyang.reggie.service.impl.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +28,7 @@ public class EmployeeController {
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public Result login(HttpServletRequest request, @RequestBody Employee employee) {
+    public Result login(HttpServletRequest request, @RequestBody EmployeeLoginDTO employee) {
         return employeeService.login(request, employee);
     }
 
@@ -53,7 +54,29 @@ public class EmployeeController {
      */
     @ApiOperation(value = "新增员工信息")
     @PostMapping
-    public Result add(@RequestBody EnployeeDTO employee,HttpServletRequest request) {
+    public Result add(@RequestBody EmployeeDTO employee, HttpServletRequest request) {
         return employeeService.add(employee,request);
+    }
+
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return Result<Employee>
+     */
+    @ApiOperation(value = "根据id查询员工信息")
+    @GetMapping("/{id}")
+    public Result get(@PathVariable("id") String id) {
+        return employeeService.getEmployee(id);
+    }
+
+    /**
+     * 修改员工信息
+     * @param employee
+     * @return Result<Employee>
+     */
+    @ApiOperation(value = "修改员工信息")
+    @PutMapping
+    public Result update(@RequestBody EmployeeDTO employee) {
+        return employeeService.update(employee);
     }
 }

@@ -5,7 +5,8 @@ import java.util.List;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mingyang.reggie.entity.dto.EnployeeDTO;
+import com.mingyang.reggie.entity.dto.EmployeeDTO;
+import com.mingyang.reggie.entity.dto.EmployeeLoginDTO;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +30,7 @@ public interface EmployeeService extends IService<Employee>{
      * @param employee Employee
      * @return Result<Employee>
      */
-    Result login(HttpServletRequest request, Employee employee);
+    Result login(HttpServletRequest request, EmployeeLoginDTO employee);
 
     /**
      * 登出
@@ -49,8 +50,22 @@ public interface EmployeeService extends IService<Employee>{
 
     /**
      * 新增员工信息
-     * @param employee EnployeeDTO
+     * @param employee EmployeeDTO
      * @return Result<Employee>
      */
-    Result add(EnployeeDTO employee,HttpServletRequest request);
+    Result add(EmployeeDTO employee, HttpServletRequest request);
+
+    /**
+     * 更新员工信息
+     * @param employee EmployeeDTO
+     * @return Result<Employee>
+     */
+    Result update(EmployeeDTO employee);
+
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return
+     */
+    Result getEmployee(String id);
 }

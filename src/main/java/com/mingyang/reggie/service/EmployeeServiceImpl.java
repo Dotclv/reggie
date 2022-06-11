@@ -3,25 +3,21 @@ package com.mingyang.reggie.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mingyang.reggie.common.constant.EntityConstant;
-import com.mingyang.reggie.common.enums.EmployeeEnum;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.common.result.ResultCode;
-import com.mingyang.reggie.common.utils.JsonTool;
 import com.mingyang.reggie.common.utils.MD5Util;
-import com.mingyang.reggie.entity.dto.EnployeeDTO;
+import com.mingyang.reggie.entity.dto.EmployeeDTO;
+import com.mingyang.reggie.entity.dto.EmployeeLoginDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import java.util.List;
 import com.mingyang.reggie.mapper.EmployeeMapper;
 import com.mingyang.reggie.entity.Employee;
 import com.mingyang.reggie.service.impl.EmployeeService;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author:  ymy
@@ -50,7 +46,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      * @return Result<Employee>
      */
     @Override
-    public Result login(HttpServletRequest request, Employee employee) {
+    public Result login(HttpServletRequest request, EmployeeLoginDTO employee) {
         // 将密码进行MD5加密
         employee.setPassword(MD5Util.MD5(employee.getPassword()));
         // 根据用户名查数据库
@@ -94,13 +90,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         wrapper.lambda().eq(Employee::getIsDeleted,EntityConstant.IS_NOT_DELETED)
                         .like(StringUtils.isNotEmpty(name), Employee::getUsername, name)
                         .orderByDesc(Employee::getCreateTime);
-        Page<Employee> selectPage = baseMapper.selectPage(employeePage, wrapper);
+        Page<EmployeeDTO> selectPage = baseMapper.page(employeePage, wrapper);
         return Result.success(selectPage);
     }
 
     @Override
-    public Result add(EnployeeDTO employee,HttpServletRequest request) {
-        Employee toEmployee = EnployeeDTO.convertToEmployee(employee);
+    public Result add(EmployeeDTO employee, HttpServletRequest request) {
+        Employee toEmployee = EmployeeDTO.convertToEmployee(employee);
 //        Object attribute = request.getSession().getAttribute("employee");
 //        Employee parse = JsonTool.parse(JsonTool.toJson(attribute), Employee.class);
         toEmployee.setCreateUser(1L);
@@ -108,5 +104,19 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         toEmployee.setPassword(MD5Util.MD5(toEmployee.getPassword()));
         int insert = baseMapper.insert(toEmployee);
         return insert >0 ? Result.success() : Result.failure(ResultCode.USER_ADD_ERROR);
+    }
+
+    @Override
+    public Result update(EmployeeDTO employee) {
+        Employee toEmployee = EmployeeDTO.convertToEmployee(employee);
+        int i = baseMapper.updateById(toEmployee);
+        return i > 0 ? Result.success() : Result.failure(ResultCode.PARAM_ERROR);
+    }
+
+    @Override
+    public Result getEmployee(String id) {
+        Employee employee = baseMapper.selectById(id);
+        EmployeeDTO toEmployeeDTO = EmployeeDTO.convertToEmployeeDTO(employee);
+        return Result.success(toEmployeeDTO);
     }
 }

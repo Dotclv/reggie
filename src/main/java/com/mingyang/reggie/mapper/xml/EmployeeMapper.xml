@@ -101,4 +101,10 @@
         )
     </foreach>
   </insert>
+
+  <select id="page" resultType="com.mingyang.reggie.entity.dto.EmployeeDTO">
+    SELECT <include refid="Base_Column_List" />
+    FROM employee
+    ${ew.customSqlSegment}
+  </select>
 </mapper>

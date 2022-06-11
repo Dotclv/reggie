@@ -1,5 +1,6 @@
 package com.mingyang.reggie.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -8,24 +9,26 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 
 @Configuration
-@EnableSwagger2WebMvc
+@EnableSwagger2
+@EnableKnife4j
 public class Knife4jConfiguration {
 
     @Bean(value = "defaultApi2")
     public Docket defaultApi2() {
-        Docket docket=new Docket(DocumentationType.SWAGGER_2)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("RESTful APIs")
-                        .description("# swagger-bootstrap-ui-demo RESTful APIs")
+                        .title("瑞吉管理系统")
+                        .description("瑞吉管理系统")
                         .termsOfServiceUrl("http://www.xx.com/")
                         .contact(new Contact("ymy", "http://www.xx.com/", "yumingyang0212@gmail.com"))
                         .version("1.0")
                         .build())
                 //分组名称
-                .groupName("3.X版本")
+                .groupName("后台管理系统")
                 .select()
                 //这里指定Controller扫描包路径
                 .apis(RequestHandlerSelectors.basePackage("com.mingyang.reggie.controller"))

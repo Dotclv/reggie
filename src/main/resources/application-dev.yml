@@ -15,6 +15,8 @@ spring:
 #    username: xlei1812023@163.com # 登录163邮箱的账号
 #    password: XTZMIJKGMWDXDVRI  # 开启 IMAP/SMTP服务 获得的授权码,而不是163邮箱的登录密码
 #    default-encoding: UTF-8
+  freemarker:
+    check-template-location: false
 
   redis:
     host: 192.168.17.132 # 本地IP 或是 虚拟机IP

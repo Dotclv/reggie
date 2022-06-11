@@ -43,7 +43,7 @@ public class EmployeeController {
      * @return Result<Employee>
      */
     @ApiOperation(value = "员工分页查询")
-    @GetMapping("/page")
+    @GetMapping(value = "/page", produces = "application/json;charset=UTF-8")
     public Result page(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,
                        @RequestParam(value = "name",required = false) String name) {
         return employeeService.page(page,pageSize,name);

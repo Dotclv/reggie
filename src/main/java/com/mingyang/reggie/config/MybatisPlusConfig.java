@@ -1,6 +1,8 @@
 package com.mingyang.reggie.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
+import com.baomidou.mybatisplus.extension.incrementer.H2KeyGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,7 +15,7 @@ import java.util.Collections;
 @EnableTransactionManagement
 @Configuration
 @MapperScan("com.mingyang.bootlaunch.mapper")
-public class MybatisPlusConfig {
+public class  MybatisPlusConfig {
     /**
      * 分页插件 3.5.X
      * @author zhengkai.blog.csdn.net
@@ -33,5 +35,10 @@ public class MybatisPlusConfig {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         mybatisPlusInterceptor.setInterceptors(Collections.singletonList(paginationInnerInterceptor()));
         return mybatisPlusInterceptor;
+    }
+
+    @Bean
+    public IKeyGenerator keyGenerator() {
+        return new H2KeyGenerator();
     }
 }

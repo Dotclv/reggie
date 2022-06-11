@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mingyang.reggie.mapper.EmployeeMapper;
@@ -88,8 +89,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         Page<Employee> employeePage = new Page<>(page, size);
         QueryWrapper<Employee> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(Employee::getIsDeleted,EntityConstant.IS_NOT_DELETED)
-                        .like(StringUtils.isNotEmpty(name), Employee::getUsername, name)
-                        .orderByDesc(Employee::getCreateTime);
+                        .like(StringUtils.isNotEmpty(name), Employee::getName, name)
+                        .orderByDesc(Employee::getUpdateTime);
         Page<EmployeeDTO> selectPage = baseMapper.page(employeePage, wrapper);
         return Result.success(selectPage);
     }
@@ -97,20 +98,20 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Result add(EmployeeDTO employee, HttpServletRequest request) {
         Employee toEmployee = EmployeeDTO.convertToEmployee(employee);
-//        Object attribute = request.getSession().getAttribute("employee");
-//        Employee parse = JsonTool.parse(JsonTool.toJson(attribute), Employee.class);
-        toEmployee.setCreateUser(1L);
-        toEmployee.setUpdateUser(1L);
-        toEmployee.setPassword(MD5Util.MD5(toEmployee.getPassword()));
-        int insert = baseMapper.insert(toEmployee);
-        return insert >0 ? Result.success() : Result.failure(ResultCode.USER_ADD_ERROR);
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        toEmployee.setCreateUser(empId);
+        toEmployee.setUpdateUser(empId);
+        toEmployee.setCreateTime(new Date());
+        toEmployee.setUpdateTime(new Date());
+        toEmployee.setPassword(MD5Util.MD5(EntityConstant.INIT_PASSWORD));
+        return this.save(toEmployee) ? Result.success() : Result.failure(ResultCode.USER_ADD_ERROR);
     }
 
     @Override
     public Result update(EmployeeDTO employee) {
         Employee toEmployee = EmployeeDTO.convertToEmployee(employee);
-        int i = baseMapper.updateById(toEmployee);
-        return i > 0 ? Result.success() : Result.failure(ResultCode.PARAM_ERROR);
+        toEmployee.setUpdateTime(new Date());
+        return this.updateById(toEmployee) ? Result.success() : Result.failure(ResultCode.PARAM_ERROR);
     }
 
     @Override

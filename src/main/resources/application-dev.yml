@@ -9,6 +9,10 @@ spring:
       url: jdbc:mysql://192.168.17.132:3306/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: root
+  jackson:
+    # 全局配置 json 时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
       # 邮箱配置
 #  mail:
 #    host: smtp.163.com  # 发送邮件的服务器地址

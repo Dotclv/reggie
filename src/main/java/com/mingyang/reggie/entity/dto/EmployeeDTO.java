@@ -1,7 +1,10 @@
 package com.mingyang.reggie.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mingyang.reggie.common.constant.EntityConstant;
 import com.mingyang.reggie.common.enums.EmployeeEnum;
+import com.mingyang.reggie.common.model.JsonLongSerializer;
 import com.mingyang.reggie.entity.Employee;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +22,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "员工信息")
 public class EmployeeDTO {
-
+    @JsonSerialize(using = JsonLongSerializer.class )
     @ApiModelProperty(value="姓名")
     private Long id;
     /**
@@ -58,6 +61,12 @@ public class EmployeeDTO {
     @ApiModelProperty(value="身份证号")
     private String idNumber;
 
+    /**
+     * 状态 0:禁用，1:正常
+     */
+    @ApiModelProperty(value="状态 0:禁用，1:正常")
+    private Integer status;
+
     public static Employee convertToEmployee(EmployeeDTO item) {
         if (item == null) {
             return null;
@@ -68,14 +77,13 @@ public class EmployeeDTO {
         }
         result.setName(item.getName());
         result.setUsername(item.getUsername());
-        result.setPassword(EntityConstant.INIT_PASSWORD);
+        result.setPassword(item.getUsername());
         result.setPhone(item.getPhone());
         result.setSex(item.getSex());
         result.setIdNumber(item.getIdNumber());
         result.setStatus(EmployeeEnum.EMPLOYEE_ID_STATUS_NORMAL.getCode());
         result.setIsDeleted(EntityConstant.IS_NOT_DELETED);
-        result.setCreateTime(new Date());
-        result.setUpdateTime(new Date());
+        result.setStatus(item.getStatus());
         return result;
     }
 
@@ -91,6 +99,7 @@ public class EmployeeDTO {
         result.setPhone(item.getPhone());
         result.setSex(item.getSex());
         result.setIdNumber(item.getIdNumber());
+        result.setStatus(item.getStatus());
         return result;
     }
 }

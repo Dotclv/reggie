@@ -1,6 +1,7 @@
 package com.mingyang.reggie.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mingyang.reggie.common.model.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -55,9 +56,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         // 创建消息转换器
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         // 设置消息转换器的转换规则
-        messageConverter.setObjectMapper(new ObjectMapper());
+        messageConverter.setObjectMapper(new JacksonObjectMapper());
         // 将消息转换器添加到转换器列表中
-        converters.add(messageConverter);
-        super.extendMessageConverters(converters);
+        converters.add(0,messageConverter);
     }
 }

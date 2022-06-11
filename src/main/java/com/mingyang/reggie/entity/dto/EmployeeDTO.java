@@ -22,7 +22,6 @@ import java.util.Date;
 @Data
 @ApiModel(value = "员工信息")
 public class EmployeeDTO {
-    @JsonSerialize(using = JsonLongSerializer.class )
     @ApiModelProperty(value="姓名")
     private Long id;
     /**

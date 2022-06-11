@@ -34,7 +34,7 @@ public class DishFlavor extends BaseEntity {
      */
     @TableId(value = "id")
     @TableField(fill = FieldFill.INSERT)
-    @JsonSerialize(using = ToStringSerializer.class)
+    
     @ApiModelProperty(value="主键")
     private Long id;
 

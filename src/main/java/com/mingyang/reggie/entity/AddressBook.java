@@ -1,13 +1,12 @@
 package com.mingyang.reggie.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.mingyang.reggie.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,6 @@ public class AddressBook extends BaseEntity {
      */
     @TableId(value = "id")
     @TableField(fill = FieldFill.INSERT)
-    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "主键")
     private Long id;
 

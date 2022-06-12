@@ -1,10 +1,12 @@
 package com.mingyang.reggie.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import com.mingyang.reggie.common.exception.BuzException;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.common.result.ResultCode;
 import com.mingyang.reggie.entity.SetmealDish;
@@ -141,17 +143,17 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
     }
 
     @Override
-    public Result delete(String ids) {
-        String[] split = ids.split(",");
-        List<String> list = Arrays.asList(split);
-        List<Long> longs = list.stream().map(l -> Long.valueOf(l)).collect(Collectors.toList());
-        boolean b = this.removeByIds(longs);
+    public Result delete(List<Long> ids) {
+        if(this.count(new QueryWrapper<Setmeal>().lambda().in(Setmeal::getId, ids).eq(Setmeal::getStatus, 1)) > 0) {
+            throw new BuzException(ResultCode.CATEGORY_HAS_SETMEAL);
+        }
+        boolean b = this.removeByIds(ids);
         if (!b) {
             log.error("【删除套餐】删除套餐数据失败，ids={}", ids);
             return Result.failure(ResultCode.INTERFACE_RETURN_ERROR);
         }
         QueryWrapper<SetmealDish> wrapper = new QueryWrapper<>();
-        wrapper.lambda().in(SetmealDish::getSetmealId, longs);
+        wrapper.lambda().in(SetmealDish::getSetmealId, ids);
         boolean remove = setmealDishService.remove(wrapper);
         if (!remove) {
             log.error("套餐菜品删除失败，setmealDishes={}", ids);
@@ -161,12 +163,9 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
     }
 
     @Override
-    public Result updateStatus(String ids, Integer type) {
-        String[] split = ids.split(",");
-        List<String> list = Arrays.asList(split);
-        List<Long> longs = list.stream().map(l -> Long.valueOf(l)).collect(Collectors.toList());
+    public Result updateStatus(List<Long> ids, Integer type) {
         UpdateWrapper<Setmeal> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.lambda().in(Setmeal::getId, longs)
+        updateWrapper.lambda().in(Setmeal::getId, ids)
                 .set(Setmeal::getStatus, type);
         return this.update(updateWrapper) ? Result.success() : Result.failure(ResultCode.INTERFACE_RETURN_ERROR);
     }

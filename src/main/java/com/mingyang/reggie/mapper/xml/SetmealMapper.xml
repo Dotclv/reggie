@@ -115,6 +115,7 @@
         setmeal.price as price,
         setmeal.`status` as status,
         setmeal.update_time as updateTime,
+        setmeal.image as image,
         category.`name` as categoryName,
         setmeal.category_id as categoryId
       FROM setmeal

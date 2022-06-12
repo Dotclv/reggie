@@ -65,7 +65,7 @@ public class DishController {
      * @return Result
      */
     @DeleteMapping
-    public Result delete(@RequestParam("ids") String ids) {
+    public Result delete(@RequestParam("ids") List<Long> ids) {
         return dishService.delete(ids);
     }
     /**

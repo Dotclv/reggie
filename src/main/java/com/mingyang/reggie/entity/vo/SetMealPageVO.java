@@ -25,6 +25,8 @@ public class SetMealPageVO {
     private Long categoryId;
     @ApiModelProperty(value="菜品分类")
     private String categoryName;
+    @ApiModelProperty(value="菜品图片")
+    private String image;
     @ApiModelProperty(value="套餐名称")
     private String name;
     @ApiModelProperty(value="套餐价格")

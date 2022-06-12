@@ -1,11 +1,13 @@
 package com.mingyang.reggie.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.mingyang.reggie.common.constant.EntityConstant;
+import com.mingyang.reggie.common.exception.BuzException;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.common.result.ResultCode;
 import com.mingyang.reggie.entity.DishFlavor;
@@ -137,16 +139,16 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result delete(String ids) {
-        String[] split = ids.split(",");
-        List<String> list = Arrays.asList(split);
-        List<Long> longs = list.stream().map(l -> Long.valueOf(l)).collect(Collectors.toList());
-        boolean b = this.removeByIds(longs);
+    public Result delete(List<Long> ids) {
+        if(this.count(new QueryWrapper<Dish>().lambda().in(Dish::getId, ids).eq(Dish::getStatus, 1)) > 0) {
+            throw new BuzException(ResultCode.CATEGORY_HAS_DISH);
+        }
+        boolean b = this.removeByIds(ids);
         if (!b) {
             log.error("删除菜品失败");
             return Result.failure(ResultCode.INTERFACE_RETURN_ERROR);
         }
-        boolean b1 = flavorService.remove(new QueryWrapper<DishFlavor>().in("dish_id", longs));
+        boolean b1 = flavorService.remove(new QueryWrapper<DishFlavor>().in("dish_id", ids));
         if(!b1){
             log.error("删除菜品属性失败");
             return Result.failure(ResultCode.INTERFACE_RETURN_ERROR);

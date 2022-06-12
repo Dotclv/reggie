@@ -29,7 +29,7 @@ public interface SetmealService extends IService<Setmeal>{
 
     Result getSetMeal(String id);
 
-    Result delete(String ids);
+    Result delete(List<Long> ids);
 
-    Result updateStatus(String ids, Integer type);
+    Result updateStatus(List<Long> ids, Integer type);
 }

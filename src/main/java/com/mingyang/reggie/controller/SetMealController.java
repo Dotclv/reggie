@@ -6,6 +6,7 @@ import com.mingyang.reggie.service.impl.SetmealService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author: ymy
@@ -63,7 +64,7 @@ public class SetMealController {
      * @return Result
      */
     @DeleteMapping
-    public Result deleteBatch(@RequestParam("ids")String ids) {
+    public Result deleteBatch(@RequestParam("ids") List<Long> ids) {
         return setMealService.delete(ids);
     }
 
@@ -74,7 +75,7 @@ public class SetMealController {
      * @return
      */
     @PostMapping("/status/{type}")
-    public Result updateStatus(@RequestParam("ids") String ids, @PathVariable("type") Integer type) {
+    public Result updateStatus(@RequestParam("ids") List<Long> ids, @PathVariable("type") Integer type) {
         return setMealService.updateStatus(ids,type);
     }
 }

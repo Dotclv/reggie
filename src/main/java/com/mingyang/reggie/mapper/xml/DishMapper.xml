@@ -118,6 +118,7 @@
         SELECT
             dish.id as id,
             dish.`name` as name,
+            dish.image as image,
             dish.category_id as categoryId,
             category.name as categoryName,
             dish.price,

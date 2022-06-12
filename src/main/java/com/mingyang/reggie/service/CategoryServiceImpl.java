@@ -105,7 +105,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         QueryWrapper<Category> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(Category::getIsDeleted, EntityConstant.IS_NOT_DELETED)
                 .eq(StringUtils.isNotEmpty(type),Category::getType, type)
-                .orderByDesc(Category::getUpdateTime);
+                .orderByAsc(Category::getSort)
+                .orderByDesc(Category::getCreateTime);
         return Result.success(this.list(wrapper));
     }
 

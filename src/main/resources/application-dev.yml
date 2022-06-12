@@ -30,6 +30,10 @@ spring:
   cache:
     redis:
       time-to-live: 1800000  # 设置缓存数据的过期时间，30分钟
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 200MB
 
 mybatis-plus:
   mapper-locations:
@@ -50,5 +54,5 @@ logging:
     com.mingyang.reggie: INFO
   config: classpath:logback-spring.xml
 
-#upload:
-#  filePath: E:\maven_project\mydelivery\project_images\img
+upload:
+  filePath: E:\file\upload\

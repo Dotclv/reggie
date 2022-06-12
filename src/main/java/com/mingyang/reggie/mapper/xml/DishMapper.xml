@@ -113,4 +113,24 @@
         #{item.updateUser,jdbcType=BIGINT}, #{item.isDeleted,jdbcType=INTEGER})
     </foreach>
   </insert>
+
+  <select id="page" resultType="com.mingyang.reggie.entity.vo.DishPageVO">
+        SELECT
+            dish.id as id,
+            dish.`name` as name,
+            dish.category_id as categoryId,
+            category.name as categoryName,
+            dish.price,
+            dish.`status`,
+            dish.update_time
+        FROM dish
+        LEFT JOIN category ON dish.category_id = category.id
+        <where>
+          <if test="ew.sqlSegment != null and ew.sqlSegment != ''">
+            ${ew.sqlSegment}
+          </if>
+          AND dish.is_deleted = 0 AND category.is_deleted = 0
+        </where>
+        ORDER BY dish.sort DESC, dish.update_time DESC
+  </select>
 </mapper>

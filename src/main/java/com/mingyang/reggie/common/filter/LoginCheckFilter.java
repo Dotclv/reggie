@@ -1,5 +1,6 @@
 package com.mingyang.reggie.common.filter;
 
+import com.mingyang.reggie.common.constant.EntityConstant;
 import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.common.result.ResultCode;
 import com.mingyang.reggie.common.utils.JsonTool;
@@ -45,7 +46,7 @@ public class LoginCheckFilter implements Filter {
             return;
         }
         // 获取session
-        if(request.getSession().getAttribute("employee") != null) {
+        if(request.getSession().getAttribute(EntityConstant.USER_LOGIN_SESSION_KEY) != null) {
             long id = Thread.currentThread().getId();
             log.info("线程 {} 获取到session", id);
             filterChain.doFilter(request, response);

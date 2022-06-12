@@ -10,7 +10,13 @@ import lombok.Getter;
  * @version: 1.0
  */
 public enum EmployeeEnum {
+    /**
+     * 账号正常状态
+     */
     EMPLOYEE_ID_STATUS_NORMAL(1, "正常"),
+    /**
+     * 账号锁定状态
+     */
     EMPLOYEE_ID_STATUS_DISABLE(0, "禁用");
 
     @Getter

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date: 2022/6/10 23:01
  * @version: 1.0
  */
-@Api(value = "员工信息")
+@Api(value = "员工信息", tags = "员工信息")
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {

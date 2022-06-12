@@ -66,6 +66,11 @@ public enum ResultCode {
      * 参数超出范围
      * */
     PARAM_OUT_OF_RANGE(1007, "参数超出范围"),
+    /**
+     * 参数有关联关系
+     */
+    PARAM_REFERENCE(1008, "参数有关联关系"),
+
 
 
 
@@ -129,7 +134,16 @@ public enum ResultCode {
      * 接口调用失败
      * */
     INTERFACE_INVOKE_FAILED(3005, "接口调用失败"),
-;
+
+    /**
+     * 已有存在菜品
+     */
+     CATEGORY_HAS_DISH(4000, "已关联菜品"),
+    /**
+     * 已关联套餐
+     */
+    CATEGORY_HAS_SETMEAL(4001, "已关联套餐"),
+    ;
 
 
     private Integer code;

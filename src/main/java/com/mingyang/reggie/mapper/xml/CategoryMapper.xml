@@ -73,4 +73,10 @@
         #{item.createUser,jdbcType=BIGINT}, #{item.updateUser,jdbcType=BIGINT})
     </foreach>
   </insert>
+
+  <select id="page" resultType="com.mingyang.reggie.entity.vo.CategoryPageVO">
+    SELECT <include refid="Base_Column_List" />
+    FROM category
+    ${ew.customSqlSegment}
+    </select>
 </mapper>

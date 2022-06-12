@@ -1,5 +1,12 @@
 package com.mingyang.reggie.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mingyang.reggie.common.constant.EntityConstant;
+import com.mingyang.reggie.common.result.Result;
+import com.mingyang.reggie.entity.vo.DishPageVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,5 +32,14 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     @Override
     public int batchInsert(List<Dish> list) {
         return baseMapper.batchInsert(list);
+    }
+
+    @Override
+    public Result pages(Integer page, Integer pageSize, String name) {
+        Page<Dish> dishPage = new Page<>(page, pageSize);
+        QueryWrapper<Dish> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like(StringUtils.isNotEmpty(name),"dish.name", name);
+        IPage<DishPageVO> voPage = baseMapper.page(dishPage, queryWrapper);
+        return Result.success(voPage);
     }
 }

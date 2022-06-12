@@ -164,4 +164,11 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
                         .set(Dish::getStatus, type);
         return this.update(wrapper)?Result.success():Result.failure(ResultCode.INTERFACE_RETURN_ERROR);
     }
+
+    @Override
+    public Result list(Long categoryId) {
+        QueryWrapper<Dish> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Dish::getCategoryId, categoryId);
+        return Result.success(this.list(wrapper));
+    }
 }

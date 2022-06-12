@@ -1,6 +1,8 @@
 package com.mingyang.reggie.service.impl;
 
 import java.util.List;
+
+import com.mingyang.reggie.common.result.Result;
 import com.mingyang.reggie.entity.Orders;
 import com.baomidou.mybatisplus.extension.service.IService;
     /**
@@ -17,4 +19,5 @@ public interface OrdersService extends IService<Orders>{
 
     int batchInsert(List<Orders> list);
 
+    Result pages(Integer page, Integer pageSize, Integer number, String beginTime, String endTime);
 }

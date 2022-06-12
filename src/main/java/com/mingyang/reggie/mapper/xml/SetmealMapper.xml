@@ -107,4 +107,24 @@
         #{item.isDeleted,jdbcType=INTEGER})
     </foreach>
   </insert>
+
+  <select id="page" resultType="com.mingyang.reggie.entity.vo.SetMealPageVO">
+      SELECT
+        setmeal.id as id,
+        setmeal.`name` as name,
+        setmeal.price as price,
+        setmeal.`status` as status,
+        setmeal.update_time as updateTime,
+        category.`name` as categoryName,
+        setmeal.category_id as categoryId
+      FROM setmeal
+      LEFT JOIN category ON setmeal.category_id = category.id
+      <where>
+        <if test="ew.sqlSegment != null and ew.sqlSegment != ''">
+          ${ew.sqlSegment}
+        </if>
+        AND setmeal.is_deleted = 0 AND category.is_deleted = 0
+        ORDER BY setmeal.update_time DESC
+      </where>
+    </select>
 </mapper>

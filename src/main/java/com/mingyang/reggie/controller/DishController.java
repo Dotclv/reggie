@@ -77,4 +77,15 @@ public class DishController {
     public Result updateStatus(@RequestParam("ids") String ids, @PathVariable("type") Integer type) {
         return dishService.updateStatus(ids,type);
     }
+
+    /**
+     * 根据菜品分类id查询菜品
+     * @param categoryId
+     * @return Result
+     */
+    @GetMapping("/list")
+    public Result list(@RequestParam("categoryId") Long categoryId) {
+        return dishService.list(categoryId);
+    }
+
 }

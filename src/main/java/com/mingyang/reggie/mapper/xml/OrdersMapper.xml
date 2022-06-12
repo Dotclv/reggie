@@ -113,4 +113,26 @@
         #{item.userName,jdbcType=VARCHAR}, #{item.consignee,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+  <select id="page" resultType="com.mingyang.reggie.entity.vo.OrdersPageVO">
+        SELECT
+        orders.id,
+        orders.`number`,
+        orders.`status`,
+        address_book.id as userId,
+        address_book.consignee as consignee,
+        address_book.phone as phone,
+        address_book.detail as detail,
+        orders.order_time as orderTime,
+        orders.amount
+        FROM orders
+        LEFT JOIN address_book ON orders.address_book_id = address_book.id
+        <where>
+          <if test="ew.sqlSegment != null and ew.sqlSegment != ''">
+            ${ew.sqlSegment}
+          </if>
+          AND orders.is_deleted = 0
+          AND address_book.is_deleted = 0
+        </where>
+  </select>
 </mapper>

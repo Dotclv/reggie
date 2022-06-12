@@ -1,5 +1,11 @@
 package com.mingyang.reggie.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mingyang.reggie.common.result.Result;
+import com.mingyang.reggie.entity.vo.OrdersPageVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,5 +31,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Override
     public int batchInsert(List<Orders> list) {
         return baseMapper.batchInsert(list);
+    }
+
+    @Override
+    public Result pages(Integer page, Integer pageSize, Integer number, String beginTime, String endTime) {
+        Page<Orders> ordersPage = new Page<>(page, pageSize);
+        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(number != null,"orders.number", number);
+        queryWrapper.between(StringUtils.isNotEmpty(beginTime) && StringUtils.isNotEmpty(endTime),
+                              "orders.order_time", beginTime, endTime);
+        IPage<OrdersPageVO> iPage = baseMapper.page(ordersPage, queryWrapper);
+        return Result.success(iPage);
     }
 }

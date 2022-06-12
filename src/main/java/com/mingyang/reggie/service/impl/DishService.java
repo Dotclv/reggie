@@ -32,4 +32,7 @@ public interface DishService extends IService<Dish>{
     Result delete(String ids);
 
     Result updateStatus(String ids, Integer type);
+
+    Result list(Long categoryId);
+
 }
